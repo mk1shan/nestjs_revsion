@@ -16,12 +16,21 @@ async function bootstrap() {
   );
 
 
-  const config = new DocumentBuilder()
-    .setTitle('User Management API')
-    .setDescription('The API documentation for the NestJS User service')
-    .setVersion('1.0')
-    .addTag('users')
-    .build();
+ const config = new DocumentBuilder()
+  .setTitle('User Management API')
+  .setDescription('The API documentation for the NestJS User service')
+  .setVersion('1.0')
+  .addTag('users')
+  .addBearerAuth(
+    {
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+      description: 'Enter JWT token',
+    },
+    'JWT-auth',
+  )
+  .build();
 
   const document = SwaggerModule.createDocument(app, config);
   

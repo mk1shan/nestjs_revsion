@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Request, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -44,7 +44,7 @@ export class AuthController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get('profile')
-  @ApiBearerAuth()
+  @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Get logged-in user profile' })
   @ApiResponse({
     status: 200,
@@ -61,4 +61,24 @@ export class AuthController {
   getProfile(@Request() req) {
     return req.user;
   }
+
+@UseGuards(AuthGuard('jwt'))
+  @Get('me')
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Get current logged-in user' })
+  @ApiResponse({
+    status: 200,
+    description: 'Current user data',
+    schema: {
+      example: {
+        userId: 'clx123',
+        email: 'mudipa@gmail.com',
+        role: 'USER',
+      },
+    },
+  })
+  getCurrentUser(@Req() req) {
+    return req.user;
+  }
+
 }
