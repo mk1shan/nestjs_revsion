@@ -30,7 +30,7 @@ export class AuthController {
   @ApiBody({ type: LoginDto })
   @ApiResponse({
     status: 200,
-    description: 'Login successful',
+    description: 'Login successfull',
     schema: {
       example: {
         accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
